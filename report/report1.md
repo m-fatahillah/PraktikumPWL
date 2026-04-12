@@ -89,14 +89,15 @@ http://localhost:8000/admin
 
 ## Hasil
 
-(Tambahkan Screenshot)
 
 * Halaman login Filament
+![login](../image/js1.1.png)
 
 * Dashboard admin
+![dashboard](../image/js1.2.png)
 
 * Data user pada database
-
+![user](../image/js1.3.png)
 
 ---
 
