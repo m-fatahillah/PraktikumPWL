@@ -12,6 +12,8 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class PostForm
@@ -20,23 +22,43 @@ class PostForm
     {
         return $schema
             ->components([
-                TextInput::make('title')->required(),
-                TextInput::make('slug')->required(),
-                Select::make('category_id')
-                    ->label('Category')
-                    ->options(
-                        Category::all()->pluck('name', 'id')
-                    )
-                    ->required(),
-                ColorPicker::make('color'),
-                // MarkdownEditor::make('content'),
-                RichEditor::make('content'),
-                FileUpload::make('image')
-                    ->disk('public')
-                    ->directory('posts'),
-                TagsInput::make('tags'),
-                Checkbox::make('published'),
-                DateTimePicker::make('published_at'),
-            ]);
+
+                Section::make('Post Details')
+                    ->description('Fill in the details of the post')
+                    ->icon('heroicon-o-document-text')
+                    ->schema([
+                        // grouping fields into 2 columns
+                        Group::make([
+                            TextInput::make('title')->required(),
+                            TextInput::make('slug')->required(),
+                            Select::make('category_id')
+                                ->label('Category')
+                                ->options(
+                                    Category::all()->pluck('name', 'id')
+                                )
+                                ->required(),
+                            ColorPicker::make('color'),
+                        ])->columns(2),
+                        MarkdownEditor::make('content'),
+                    ])->columnSpan(2),
+
+                Group::make([
+                    // section 2 - image
+                    Section::make('Image Upload')
+                        ->schema([
+                            FileUpload::make('image')
+                                ->disk('public')
+                                ->directory('posts'),
+                        ]),
+
+                    // section 3 - meta
+                    Section::make('Meta information')
+                        ->schema([
+                            TagsInput::make('tags'),
+                            Checkbox::make('published'),
+                            DateTimePicker::make('published_at'),
+                        ]),
+                ])->columnSpan(1),
+            ])->columns(3);
     }
 }
