@@ -8,7 +8,6 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
@@ -29,8 +28,11 @@ class PostForm
                     ->schema([
                         // grouping fields into 2 columns
                         Group::make([
-                            TextInput::make('title')->required(),
-                            TextInput::make('slug')->required(),
+                            TextInput::make('title')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('slug')
+                                ->required(),
                             Select::make('category_id')
                                 ->label('Category')
                                 ->options(
