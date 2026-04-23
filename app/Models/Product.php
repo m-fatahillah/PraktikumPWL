@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use HasFactory;
 
-    /**
-     * Kolom yang boleh diisi secara massal.
-     * Sesuaikan dengan field di migrasi tadi.
-     */
     protected $fillable = [
         'name',
         'sku',
