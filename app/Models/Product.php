@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
+
+    /**
+     * Kolom yang boleh diisi secara massal.
+     * Sesuaikan dengan field di migrasi tadi.
+     */
     protected $fillable = [
         'name',
         'sku',
@@ -15,5 +21,12 @@ class Product extends Model
         'image',
         'is_active',
         'is_featured',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'is_featured' => 'boolean',
+        'price' => 'integer',
+        'stock' => 'integer',
     ];
 }
