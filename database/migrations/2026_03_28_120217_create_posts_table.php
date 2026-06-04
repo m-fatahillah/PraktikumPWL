@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->integer('category_id');
+            $table->foreignId('category_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
             $table->String('color')->nullable();
             $table->String('image');
             $table->text('body')->nullable();
