@@ -15,15 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->foreignId('category_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
-            $table->String('color')->nullable();
-            $table->String('image');
+            $table->string('color')->nullable();
+            $table->string('image')->nullable();
             $table->text('body')->nullable();
-            $table->json('tags')->nullable();
             $table->boolean('published')->default(false);
-            $table->date('published_at')->nullable();    
+            $table->date('published_at')->nullable();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
