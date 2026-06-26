@@ -13,5 +13,5 @@ class TagForm
             ->components([
                 TextInput::make('name'),
             ]);
-    }`
+    }
 }

@@ -42,7 +42,7 @@ class TagResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ])
-            ])
+            ]);
     }
 
     public static function getRelations(): array
