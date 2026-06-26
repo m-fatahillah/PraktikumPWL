@@ -7,9 +7,10 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -18,8 +19,7 @@ class AuthController extends Controller
     /**
      * Register a new user.
      *
-     * @param  \App\Http\Requests\RegisterRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register(RegisterRequest $request)
     {
@@ -40,14 +40,13 @@ class AuthController extends Controller
     /**
      * Log in an existing user.
      *
-     * @param  \App\Http\Requests\LoginRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return $this->apiError('Invalid credentials', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -62,8 +61,7 @@ class AuthController extends Controller
     /**
      * Log out the user (revoke tokens).
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function logout(Request $request)
     {
